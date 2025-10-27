@@ -1,207 +1,562 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Restaurant Menu</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>My Restaurant Menu</title>
   <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #fffaf5;
-      color: #333;
+    :root{
+      --accent:#ff7043;
+      --muted:#6b6b6b;
+      --card:#ffffff;
+      --bg:#fffaf5;
+      --whatsapp:#25D366;
+      --radius:12px;
     }
-    header {
-      background-color: #ff7043;
-      color: white;
-      padding: 1rem;
-      text-align: center;
-      font-size: 1.8rem;
-      font-weight: bold;
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background:var(--bg);
+      color:#111;
+      -webkit-font-smoothing:antialiased;
     }
-    nav {
-      background-color: #ffe0b2;
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      padding: 1rem;
-      gap: 10px;
+    header{
+      background:linear-gradient(90deg,var(--accent),#ef6c67);
+      color:white;
+      padding:20px 16px;
+      text-align:center;
     }
-    nav a {
-      text-decoration: none;
-      background-color: white;
-      border-radius: 20px;
-      padding: 0.5rem 1rem;
-      color: #ff7043;
-      font-weight: 500;
-      border: 1px solid #ff7043;
-      transition: 0.3s;
+    header h1{
+      margin:0;
+      font-size:20px;
+      letter-spacing:0.2px;
     }
-    nav a:hover {
-      background-color: #ff7043;
-      color: white;
+    header p{margin:6px 0 0;font-size:13px;opacity:0.95}
+    .container{max-width:980px;margin:18px auto;padding:0 14px}
+    .topbar{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      justify-content:space-between;
+      margin:12px 0;
     }
-    section {
-      padding: 1rem 2rem;
+    .index{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
     }
-    h2 {
-      border-bottom: 2px solid #ff7043;
-      display: inline-block;
-      margin-bottom: 1rem;
+    .index a{
+      text-decoration:none;
+      background:#fff;
+      border-radius:999px;
+      padding:8px 12px;
+      color:var(--accent);
+      border:1px solid rgba(0,0,0,0.06);
+      font-weight:600;
+      font-size:14px;
     }
-    .menu-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background-color: #fff;
-      border-radius: 12px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      margin-bottom: 1rem;
-      padding: 0.8rem;
+    .index a:hover{background:var(--accent); color:white}
+    .tableBadge{
+      background:#fff;
+      padding:8px 12px;
+      border-radius:999px;
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+      border:1px solid rgba(0,0,0,0.06);
+      font-weight:700;
+      color:var(--accent);
     }
-    .menu-item img {
-      width: 80px;
-      height: 80px;
-      object-fit: cover;
-      border-radius: 10px;
-      margin-right: 1rem;
+
+    section { margin-top:18px; }
+    section h2{
+      margin:8px 0 14px;
+      font-size:18px;
+      color:var(--accent);
+      display:flex;
+      align-items:center;
+      gap:12px;
     }
-    .menu-info {
-      flex: 1;
+
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+      gap:12px;
     }
-    .menu-name {
-      font-weight: bold;
-      font-size: 1.1rem;
+
+    .card{
+      background:var(--card);
+      border-radius:var(--radius);
+      padding:12px;
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+      box-shadow:0 6px 18px rgba(20,20,20,0.05);
     }
-    .menu-desc {
-      font-size: 0.9rem;
-      color: #666;
+    .thumb{
+      width:96px;
+      height:72px;
+      border-radius:10px;
+      object-fit:cover;
+      flex-shrink:0;
     }
-    .menu-price {
-      color: #ff7043;
-      font-weight: bold;
+    .meta{flex:1;display:flex;flex-direction:column;gap:6px}
+    .meta .row{display:flex;align-items:center;gap:8px}
+    .name{font-weight:700;font-size:15px}
+    .desc{color:var(--muted);font-size:13px}
+    .prices{margin-top:6px;font-size:13px;color:#333;display:flex;gap:10px;flex-wrap:wrap}
+    .price-pill{background:#f7f7f7;padding:6px 8px;border-radius:8px;font-weight:700;color:var(--accent);font-size:13px}
+    .actions{display:flex;flex-direction:column;gap:8px;align-items:flex-end}
+    .order-btn{
+      background:var(--whatsapp);
+      color:white;
+      border:none;
+      padding:8px 10px;
+      border-radius:10px;
+      cursor:pointer;
+      font-weight:700;
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
     }
-    .order-btn {
-      background-color: #25D366;
-      color: white;
-      border: none;
-      border-radius: 20px;
-      padding: 0.4rem 0.8rem;
-      cursor: pointer;
-      font-size: 0.9rem;
-      transition: 0.3s;
-    }
-    .order-btn:hover {
-      background-color: #128C7E;
+    .order-btn small{font-weight:600;font-size:12px;opacity:0.95}
+    footer{margin:26px 0 60px;text-align:center;color:var(--muted);font-size:13px}
+
+    /* responsive */
+    @media (max-width:640px){
+      .thumb{width:80px;height:64px}
+      header h1{font-size:18px}
+      .index a{font-size:13px;padding:7px 10px}
+      .order-btn{padding:7px 9px}
     }
   </style>
 </head>
 <body>
-  <header>🍴 My Restaurant Menu</header>
-  <nav>
-    <a href="#pizzas">Pizzas</a>
-    <a href="#burgers">Burgers</a>
-    <a href="#beverages">Beverages</a>
-    <a href="#desserts">Desserts</a>
-  </nav>
+  <header>
+    <div class="container">
+      <h1>🍽️ My Restaurant Menu</h1>
+      <p>Tap a category to jump. Use the QR on your table to include table number automatically.</p>
+    </div>
+  </header>
 
-  <!-- Pizzas Section -->
-  <section id="pizzas">
-    <h2>🍕 Pizzas</h2>
+  <main class="container">
+    <div class="topbar">
+      <nav class="index" aria-label="Menu index">
+        <a href="#pizza-mania">Pizza Mania</a>
+        <a href="#simply-veg">Simply Veg</a>
+        <a href="#veg-treat">Veg Treat</a>
+        <a href="#veg-special">Veg Special</a>
+        <a href="#veg-feast">Veg Feast</a>
+        <a href="#side-orders">Side Orders</a>
+        <a href="#choice-crust">Choice of Crust</a>
+        <a href="#beverages">Beverages</a>
+        <a href="#choice-topping">Choice of Topping</a>
+      </nav>
 
-    <div class="menu-item">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Margherita_Originale.jpg" alt="Margherita Pizza">
-      <div class="menu-info">
-        <div class="menu-name">Margherita Pizza</div>
-        <div class="menu-desc">Classic cheese and tomato pizza</div>
-        <div class="menu-price">₹120</div>
+      <div id="tableBox" class="tableBadge" aria-hidden="true">
+        Table — <span id="tableNumber" style="color:var(--accent);margin-left:6px">--</span>
       </div>
-      <button class="order-btn" onclick="orderItem('Margherita Pizza')">Order</button>
     </div>
 
-    <div class="menu-item">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/b/b0/Paneer_Tikka_Pizza.jpg" alt="Paneer Tikka Pizza">
-      <div class="menu-info">
-        <div class="menu-name">Paneer Tikka Pizza</div>
-        <div class="menu-desc">Spicy paneer cubes on cheesy base</div>
-        <div class="menu-price">₹170</div>
+    <!-- Pizza Mania -->
+    <section id="pizza-mania">
+      <h2>🍕 Pizza Mania</h2>
+      <div class="grid">
+        <!-- top small list like Single topping / Double etc -->
+        <div class="card">
+          <img class="thumb" src="https://source.unsplash.com/420x300/?pizza" alt="Pizzas">
+          <div class="meta">
+            <div class="name">All New Veg Pizzas (single/double toppings)</div>
+            <div class="desc">Contains 100% Real Mozzarella Cheese. Prices vary by size (Regular / Medium / Large)</div>
+            <div class="prices">
+              <span class="price-pill">Single topping: ₹59 / 150 / 199</span>
+              <span class="price-pill">Double topping: ₹99 / 170 / 229</span>
+              <span class="price-pill">Veg Loaded: ₹130 / 199 / 249</span>
+            </div>
+          </div>
+          <div class="actions">
+            <button class="order-btn" onclick="orderItemPrompt('Any Veg Pizza (choose toppings)')">
+              <span>Order</span><small>WhatsApp</small>
+            </button>
+          </div>
+        </div>
+
+        <!-- Cheese Margherita -->
+        <div class="card">
+          <img class="thumb" src="https://source.unsplash.com/420x300/?margherita-pizza" alt="Cheese Margherita">
+          <div class="meta">
+            <div class="name">Cheese Margherita</div>
+            <div class="desc">Loaded with extra cheese</div>
+            <div class="prices">
+              <span class="price-pill">Regular ₹140</span>
+              <span class="price-pill">Medium ₹260</span>
+              <span class="price-pill">Large ₹399</span>
+            </div>
+          </div>
+          <div class="actions">
+            <button class="order-btn" onclick="orderItemPrompt('Cheese Margherita')">
+              <span>Order</span><small>WhatsApp</small>
+            </button>
+          </div>
+        </div>
+
+        <div class="card">
+          <img class="thumb" src="https://source.unsplash.com/420x300/?corn-pizza" alt="Cheese & Corn">
+          <div class="meta">
+            <div class="name">Cheese & Corn</div>
+            <div class="desc">Loaded with extra corn topping</div>
+            <div class="prices">
+              <span class="price-pill">Regular ₹140</span>
+              <span class="price-pill">Medium ₹260</span>
+              <span class="price-pill">Large ₹399</span>
+            </div>
+          </div>
+          <div class="actions">
+            <button class="order-btn" onclick="orderItemPrompt('Cheese & Corn Pizza')">
+              <span>Order</span><small>WhatsApp</small>
+            </button>
+          </div>
+        </div>
+
       </div>
-      <button class="order-btn" onclick="orderItem('Paneer Tikka Pizza')">Order</button>
-    </div>
-  </section>
+    </section>
 
-  <!-- Burgers Section -->
-  <section id="burgers">
-    <h2>🍔 Burgers</h2>
+    <!-- Simply Veg -->
+    <section id="simply-veg">
+      <h2>🧀 Simply Veg</h2>
+      <div class="grid">
+        <div class="card">
+          <img class="thumb" src="https://source.unsplash.com/420x300/?paneer-pizza" alt="Paneer & Onion">
+          <div class="meta">
+            <div class="name">Paneer & Onion</div>
+            <div class="desc">Cheese Paneer Onion</div>
+            <div class="prices">
+              <span class="price-pill">Regular ₹170</span>
+              <span class="price-pill">Medium ₹320</span>
+              <span class="price-pill">Large ₹460</span>
+            </div>
+          </div>
+          <div class="actions">
+            <button class="order-btn" onclick="orderItemPrompt('Paneer & Onion Pizza')">Order <small>WhatsApp</small></button>
+          </div>
+        </div>
 
-    <div class="menu-item">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Veggie_Burger.jpg" alt="Veg Burger">
-      <div class="menu-info">
-        <div class="menu-name">Veg Burger</div>
-        <div class="menu-desc">Crispy veg patty with mayo</div>
-        <div class="menu-price">₹80</div>
+        <div class="card">
+          <img class="thumb" src="https://source.unsplash.com/420x300/?italian-pizza" alt="Italiyano Pizza">
+          <div class="meta">
+            <div class="name">Italiyano Pizza</div>
+            <div class="desc">R & Y, Jalapeno, Onion</div>
+            <div class="prices">
+              <span class="price-pill">Regular ₹170</span>
+              <span class="price-pill">Medium ₹320</span>
+              <span class="price-pill">Large ₹460</span>
+            </div>
+          </div>
+          <div class="actions">
+            <button class="order-btn" onclick="orderItemPrompt('Italiyano Pizza')">Order <small>WhatsApp</small></button>
+          </div>
+        </div>
+
       </div>
-      <button class="order-btn" onclick="orderItem('Veg Burger')">Order</button>
-    </div>
+    </section>
 
-    <div class="menu-item">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/3/3b/Cheeseburger.jpg" alt="Double Cheese Burger">
-      <div class="menu-info">
-        <div class="menu-name">Double Cheese Burger</div>
-        <div class="menu-desc">Double cheese, double taste</div>
-        <div class="menu-price">₹130</div>
+    <!-- Veg Treat -->
+    <section id="veg-treat">
+      <h2>🥬 Veg Treat</h2>
+      <div class="grid">
+        <div class="card">
+          <img class="thumb" src="https://source.unsplash.com/420x300/?veggie-pizza" alt="Fresh Veggie">
+          <div class="meta">
+            <div class="name">Fresh Veggie</div>
+            <div class="desc">Onion & Capsicum</div>
+            <div class="prices">
+              <span class="price-pill">Regular ₹170</span>
+              <span class="price-pill">Medium ₹320</span>
+              <span class="price-pill">Large ₹460</span>
+            </div>
+          </div>
+          <div class="actions">
+            <button class="order-btn" onclick="orderItemPrompt('Fresh Veggie Pizza')">Order <small>WhatsApp</small></button>
+          </div>
+        </div>
+
+        <div class="card">
+          <img class="thumb" src="https://source.unsplash.com/420x300/?country-pizza" alt="Country Special">
+          <div class="meta">
+            <div class="name">Country Special</div>
+            <div class="desc">Onion, Capsicum & Tomato</div>
+            <div class="prices">
+              <span class="price-pill">Regular ₹170</span>
+              <span class="price-pill">Medium ₹320</span>
+              <span class="price-pill">Large ₹460</span>
+            </div>
+          </div>
+          <div class="actions">
+            <button class="order-btn" onclick="orderItemPrompt('Country Special Pizza')">Order <small>WhatsApp</small></button>
+          </div>
+        </div>
+
       </div>
-      <button class="order-btn" onclick="orderItem('Double Cheese Burger')">Order</button>
-    </div>
-  </section>
+    </section>
 
-  <!-- Beverages Section -->
-  <section id="beverages">
-    <h2>☕ Beverages</h2>
+    <!-- Veg Special -->
+    <section id="veg-special">
+      <h2>🌶️ Veg Special</h2>
+      <div class="grid">
 
-    <div class="menu-item">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Masala_Chai.jpg" alt="Masala Tea">
-      <div class="menu-info">
-        <div class="menu-name">Masala Tea</div>
-        <div class="menu-desc">Hot and refreshing Indian chai</div>
-        <div class="menu-price">₹20</div>
+        <div class="card">
+          <img class="thumb" src="https://source.unsplash.com/420x300/?farmhouse-pizza" alt="Farmhouse">
+          <div class="meta">
+            <div class="name">Farmhouse</div>
+            <div class="desc">Onion, Capsicum, Tomato with Mushroom</div>
+            <div class="prices">
+              <span class="price-pill">Regular ₹210</span>
+              <span class="price-pill">Medium ₹370</span>
+              <span class="price-pill">Large ₹499</span>
+            </div>
+          </div>
+          <div class="actions">
+            <button class="order-btn" onclick="orderItemPrompt('Farmhouse Pizza')">Order <small>WhatsApp</small></button>
+          </div>
+        </div>
+
+        <div class="card">
+          <img class="thumb" src="https://source.unsplash.com/420x300/?paneer-makhani-pizza" alt="Paneer Makhani">
+          <div class="meta">
+            <div class="name">Paneer Makhani</div>
+            <div class="desc">Paneer & Capsicum with Makhani Sauce</div>
+            <div class="prices">
+              <span class="price-pill">Regular ₹210</span>
+              <span class="price-pill">Medium ₹370</span>
+              <span class="price-pill">Large ₹499</span>
+            </div>
+          </div>
+          <div class="actions">
+            <button class="order-btn" onclick="orderItemPrompt('Paneer Makhani Pizza')">Order <small>WhatsApp</small></button>
+          </div>
+        </div>
+
       </div>
-      <button class="order-btn" onclick="orderItem('Masala Tea')">Order</button>
-    </div>
+    </section>
 
-    <div class="menu-item">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Iced_coffee_in_Tall_glass.jpg" alt="Cold Coffee">
-      <div class="menu-info">
-        <div class="menu-name">Cold Coffee</div>
-        <div class="menu-desc">Chilled coffee with cream</div>
-        <div class="menu-price">₹60</div>
+    <!-- Veg Feast -->
+    <section id="veg-feast">
+      <h2>🥦 Veg Feast</h2>
+      <div class="grid">
+        <div class="card">
+          <img class="thumb" src="https://source.unsplash.com/420x300/?veggie-deluxe-pizza" alt="Veggie Deluxe">
+          <div class="meta">
+            <div class="name">Veggie Deluxe</div>
+            <div class="desc">Onion, Capsicum, Mushroom, Golden Corn, Paneer</div>
+            <div class="prices">
+              <span class="price-pill">Regular ₹220</span>
+              <span class="price-pill">Medium ₹410</span>
+              <span class="price-pill">Large ₹560</span>
+            </div>
+          </div>
+          <div class="actions">
+            <button class="order-btn" onclick="orderItemPrompt('Veggie Deluxe Pizza')">Order <small>WhatsApp</small></button>
+          </div>
+        </div>
+
+        <div class="card">
+          <img class="thumb" src="https://source.unsplash.com/420x300/?spicy-pizza" alt="Spicy 5 Pepper">
+          <div class="meta">
+            <div class="name">Spicy 5 Pepper Pizza</div>
+            <div class="desc">Capsicum & Red Pepper, Jalapeno, Yellow & Red Bell Pepper</div>
+            <div class="prices">
+              <span class="price-pill">Regular ₹220</span>
+              <span class="price-pill">Medium ₹410</span>
+              <span class="price-pill">Large ₹560</span>
+            </div>
+          </div>
+          <div class="actions">
+            <button class="order-btn" onclick="orderItemPrompt('Spicy 5 Pepper Pizza')">Order <small>WhatsApp</small></button>
+          </div>
+        </div>
       </div>
-      <button class="order-btn" onclick="orderItem('Cold Coffee')">Order</button>
-    </div>
-  </section>
+    </section>
 
-  <!-- Desserts Section -->
-  <section id="desserts">
-    <h2>🍰 Desserts</h2>
+    <!-- Side Orders -->
+    <section id="side-orders">
+      <h2>🍔 Side Orders</h2>
+      <div class="grid">
+        <div class="card">
+          <img class="thumb" src="https://source.unsplash.com/420x300/?garlic-bread" alt="Garlic Bread">
+          <div class="meta">
+            <div class="name">Garlic Bread</div>
+            <div class="desc">Classic garlic bread</div>
+            <div class="prices"><span class="price-pill">₹49</span></div>
+          </div>
+          <div class="actions">
+            <button class="order-btn" onclick="orderItemPrompt('Garlic Bread')">Order <small>WhatsApp</small></button>
+          </div>
+        </div>
 
-    <div class="menu-item">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/a/a0/Chocolate_mousse_2.jpg" alt="Chocolate Mousse">
-      <div class="menu-info">
-        <div class="menu-name">Chocolate Mousse</div>
-        <div class="menu-desc">Rich and creamy chocolate dessert</div>
-        <div class="menu-price">₹90</div>
+        <div class="card">
+          <img class="thumb" src="https://source.unsplash.com/420x300/?cheese-bread" alt="Cheese Garlic Bread">
+          <div class="meta">
+            <div class="name">Cheese Garlic Bread</div>
+            <div class="desc">Cheesy garlic goodness</div>
+            <div class="prices"><span class="price-pill">₹80</span></div>
+          </div>
+          <div class="actions">
+            <button class="order-btn" onclick="orderItemPrompt('Cheese Garlic Bread')">Order <small>WhatsApp</small></button>
+          </div>
+        </div>
+
+        <div class="card">
+          <img class="thumb" src="https://source.unsplash.com/420x300/?vegburger" alt="Veg Burger">
+          <div class="meta">
+            <div class="name">Veg Burger</div>
+            <div class="desc">Crispy veg patty</div>
+            <div class="prices"><span class="price-pill">₹49</span></div>
+          </div>
+          <div class="actions">
+            <button class="order-btn" onclick="orderItemPrompt('Veg Burger')">Order <small>WhatsApp</small></button>
+          </div>
+        </div>
+
       </div>
-      <button class="order-btn" onclick="orderItem('Chocolate Mousse')">Order</button>
-    </div>
-  </section>
+    </section>
+
+    <!-- Choice of Crust -->
+    <section id="choice-crust">
+      <h2>🍞 Choice Your Crust</h2>
+      <div class="grid">
+        <div class="card">
+          <img class="thumb" src="https://source.unsplash.com/420x300/?cheese-burst" alt="Cheese Burst">
+          <div class="meta">
+            <div class="name">Cheese Burst</div>
+            <div class="desc">Extra cheesy crust</div>
+            <div class="prices"><span class="price-pill">Regular ₹65 / Medium ₹85</span></div>
+          </div>
+          <div class="actions"><button class="order-btn" onclick="orderItemPrompt('Cheese Burst Crust')">Add <small>WhatsApp</small></button></div>
+        </div>
+
+        <div class="card">
+          <img class="thumb" src="https://source.unsplash.com/420x300/?thin-crust" alt="Thin Crust">
+          <div class="meta">
+            <div class="name">Thin Crust</div>
+            <div class="desc">Light and crisp</div>
+            <div class="prices"><span class="price-pill">Regular ₹20 / Medium ₹40</span></div>
+          </div>
+          <div class="actions"><button class="order-btn" onclick="orderItemPrompt('Thin Crust')">Add <small>WhatsApp</small></button></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Beverages -->
+    <section id="beverages">
+      <h2>🥤 Beverages</h2>
+      <div class="grid">
+        <div class="card">
+          <img class="thumb" src="https://source.unsplash.com/420x300/?iced-coffee" alt="Cold Coffee">
+          <div class="meta">
+            <div class="name">Cold Coffee</div>
+            <div class="desc">Chilled coffee with cream</div>
+            <div class="prices"><span class="price-pill">₹60</span></div>
+          </div>
+          <div class="actions"><button class="order-btn" onclick="orderItemPrompt('Cold Coffee')">Order <small>WhatsApp</small></button></div>
+        </div>
+
+        <div class="card">
+          <img class="thumb" src="https://source.unsplash.com/420x300/?masala-tea" alt="Masala Tea">
+          <div class="meta">
+            <div class="name">Masala Tea</div>
+            <div class="desc">Hot and refreshing Indian chai</div>
+            <div class="prices"><span class="price-pill">₹20</span></div>
+          </div>
+          <div class="actions"><button class="order-btn" onclick="orderItemPrompt('Masala Tea')">Order <small>WhatsApp</small></button></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Choice of Topping -->
+    <section id="choice-topping">
+      <h2>🍅 Choice Of Topping</h2>
+      <div class="grid">
+        <div class="card">
+          <img class="thumb" src="https://source.unsplash.com/420x300/?extra-cheese" alt="Extra Cheese">
+          <div class="meta">
+            <div class="name">Extra Cheese</div>
+            <div class="desc">Add more cheese</div>
+            <div class="prices"><span class="price-pill">Regular ₹30 / Medium ₹50 / Large ₹70</span></div>
+          </div>
+          <div class="actions"><button class="order-btn" onclick="orderItemPrompt('Extra Cheese Topping')">Add <small>WhatsApp</small></button></div>
+        </div>
+
+        <div class="card">
+          <img class="thumb" src="https://source.unsplash.com/420x300/?vegetables" alt="Vegetarian Topping">
+          <div class="meta">
+            <div class="name">Vegetarian Topping</div>
+            <div class="desc">Onion, capsicum, tomato etc.</div>
+            <div class="prices"><span class="price-pill">Regular ₹20 / Medium ₹40 / Large ₹50</span></div>
+          </div>
+          <div class="actions"><button class="order-btn" onclick="orderItemPrompt('Vegetarian Topping')">Add <small>WhatsApp</small></button></div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      Tip: Use table-specific QR (example: add ?table=1) so staff know where the order belongs.
+    </footer>
+  </main>
 
   <script>
-    function orderItem(item) {
-      const phone = '918384826808';
-      const msg = encodeURIComponent(`Hello! I want to order one ${item} from your restaurant.`);
-      window.open(`https://wa.me/${phone}?text=${msg}`, '_blank');
+    // your WhatsApp number in international format without plus
+    const WHATSAPP_NUMBER = '918384826808';
+
+    // read ?table=N from URL
+    function getTableFromURL(){
+      const params = new URLSearchParams(window.location.search);
+      const t = params.get('table');
+      if(t && /^\d+$/.test(t)) return t;
+      return null;
     }
+
+    function showTable(){
+      const t = getTableFromURL();
+      const box = document.getElementById('tableBox');
+      const span = document.getElementById('tableNumber');
+      if(t){
+        span.textContent = t;
+        box.style.display = 'inline-flex';
+      }else{
+        span.textContent = '--';
+        // optional: hide if no table
+        // box.style.display = 'none';
+      }
+    }
+
+    showTable();
+
+    // Ask quantity, then open WhatsApp with proper message
+    function orderItemPrompt(itemName){
+      const table = getTableFromURL() || 'Not provided';
+      let qty = prompt('Quantity (number)', '1');
+      if(qty === null) return; // cancelled
+      qty = qty.trim();
+      if(!qty || isNaN(qty) || Number(qty) <= 0) { alert('Please enter a valid number'); return; }
+      orderItem(itemName, qty, table);
+    }
+
+    function orderItem(itemName, qty=1, table='Not provided'){
+      const message = `Hello! I would like to order ${qty} x ${itemName} from Table ${table}.`;
+      const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+      window.open(url, '_blank');
+    }
+
+    // Smooth scroll for index links on same page
+    document.querySelectorAll('nav a').forEach(a=>{
+      a.addEventListener('click', function(e){
+        e.preventDefault();
+        const id = this.getAttribute('href').slice(1);
+        const el = document.getElementById(id);
+        if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+      });
+    });
   </script>
 </body>
 </html>

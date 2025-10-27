@@ -1,167 +1,207 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Your Restaurant Menu</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Restaurant Menu</title>
   <style>
-    /* Simple, clean responsive menu style. Edit colors and fonts below. */
-    :root{--accent:#d9534f;--bg:#fbfbfb;--card:#ffffff;--muted:#666}
-    body{font-family:Inter,system-ui,Segoe UI,Arial; margin:0; background:var(--bg); color:#111}
-    header{background:linear-gradient(90deg,var(--accent),#ef6c67); color:white; padding:28px 18px}
-    .container{max-width:980px;margin:18px auto;padding:0 14px}
-    h1{margin:0;font-size:28px}
-    p.lead{margin:6px 0 0; opacity:.95}
-    .grid{display:grid;grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap:14px;margin-top:16px}
-    .card{background:var(--card);border-radius:12px;padding:12px; box-shadow:0 6px 18px rgba(20,20,20,0.06);display:flex;gap:12px;align-items:flex-start}
-    .thumb{width:90px;height:70px;border-radius:8px; object-fit:cover; flex-shrink:0}
-    .meta{flex:1}
-    .name{font-weight:600;margin:0}
-    .desc{margin:6px 0 0;color:var(--muted);font-size:14px}
-    .price{font-weight:700;color:var(--accent);margin-left:auto}
-    .section-title{margin-top:28px;margin-bottom:10px;font-size:18px}
-    footer{margin:28px 0;text-align:center;color:var(--muted);font-size:13px}
-    /* small header actions */
-    .actions{margin-top:10px;display:flex;gap:8px}
-    .btn{background:white;border-radius:8px;padding:8px 10px;font-weight:600;cursor:pointer;border:1px solid rgba(0,0,0,0.06)}
-    .btn.ghost{background:transparent;color:white;border:1px solid rgba(255,255,255,0.18)}
-    /* mobile QR box */
-    .qrbox{display:flex;gap:8px;align-items:center;background:#fff;padding:8px;border-radius:8px}
-    @media (max-width:520px){ .thumb{width:72px;height:56px} h1{font-size:20px} }
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #fffaf5;
+      color: #333;
+    }
+    header {
+      background-color: #ff7043;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+      font-size: 1.8rem;
+      font-weight: bold;
+    }
+    nav {
+      background-color: #ffe0b2;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      padding: 1rem;
+      gap: 10px;
+    }
+    nav a {
+      text-decoration: none;
+      background-color: white;
+      border-radius: 20px;
+      padding: 0.5rem 1rem;
+      color: #ff7043;
+      font-weight: 500;
+      border: 1px solid #ff7043;
+      transition: 0.3s;
+    }
+    nav a:hover {
+      background-color: #ff7043;
+      color: white;
+    }
+    section {
+      padding: 1rem 2rem;
+    }
+    h2 {
+      border-bottom: 2px solid #ff7043;
+      display: inline-block;
+      margin-bottom: 1rem;
+    }
+    .menu-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      margin-bottom: 1rem;
+      padding: 0.8rem;
+    }
+    .menu-item img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-right: 1rem;
+    }
+    .menu-info {
+      flex: 1;
+    }
+    .menu-name {
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+    .menu-desc {
+      font-size: 0.9rem;
+      color: #666;
+    }
+    .menu-price {
+      color: #ff7043;
+      font-weight: bold;
+    }
+    .order-btn {
+      background-color: #25D366;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      padding: 0.4rem 0.8rem;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: 0.3s;
+    }
+    .order-btn:hover {
+      background-color: #128C7E;
+    }
   </style>
 </head>
 <body>
-  <header>
-    <div class="container">
-      <h1 id="restName">Tasty Treats</h1>
-      <p class="lead" id="restTag">Home of simple & tasty meals</p>
-      <div class="actions">
-        <!-- These are just convenience buttons for the owner when editing on the server -->
-        <button class="btn" onclick="toggleEdit()">Edit (owner)</button>
-        <button class="btn ghost" onclick="window.print()">Print</button>
+  <header>🍴 My Restaurant Menu</header>
+  <nav>
+    <a href="#pizzas">Pizzas</a>
+    <a href="#burgers">Burgers</a>
+    <a href="#beverages">Beverages</a>
+    <a href="#desserts">Desserts</a>
+  </nav>
+
+  <!-- Pizzas Section -->
+  <section id="pizzas">
+    <h2>🍕 Pizzas</h2>
+
+    <div class="menu-item">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Margherita_Originale.jpg" alt="Margherita Pizza">
+      <div class="menu-info">
+        <div class="menu-name">Margherita Pizza</div>
+        <div class="menu-desc">Classic cheese and tomato pizza</div>
+        <div class="menu-price">₹120</div>
       </div>
+      <button class="order-btn" onclick="orderItem('Margherita Pizza')">Order</button>
     </div>
-  </header>
 
-  <main class="container">
-    <!-- Sections will be injected here -->
-    <div id="menuRoot"></div>
-
-    <footer>
-      Scan this QR to open the menu on phone.
-    </footer>
-  </main>
-
-  <!-- Hidden tiny admin modal for quick edits (when you're viewing hosted file, sign-in not required) -->
-  <div id="editModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);align-items:center;justify-content:center">
-    <div style="background:white;padding:18px;border-radius:10px;max-width:680px;width:94%;box-shadow:0 12px 36px rgba(0,0,0,.25)">
-      <h3 style="margin-top:0">Quick edit menu (owner)</h3>
-      <p style="margin:6px 0 12px;color:#555">Paste JSON menu below and click "Apply". Save the file to keep changes permanently on your host.</p>
-      <textarea id="menuJson" style="width:100%;height:260px;font-family:monospace; font-size:13px"></textarea>
-      <div style="display:flex;gap:8px;margin-top:8px;justify-content:flex-end">
-        <button class="btn" onclick="applyJson()">Apply</button>
-        <button class="btn ghost" onclick="toggleEdit()">Close</button>
+    <div class="menu-item">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/b/b0/Paneer_Tikka_Pizza.jpg" alt="Paneer Tikka Pizza">
+      <div class="menu-info">
+        <div class="menu-name">Paneer Tikka Pizza</div>
+        <div class="menu-desc">Spicy paneer cubes on cheesy base</div>
+        <div class="menu-price">₹170</div>
       </div>
+      <button class="order-btn" onclick="orderItem('Paneer Tikka Pizza')">Order</button>
     </div>
-  </div>
+  </section>
+
+  <!-- Burgers Section -->
+  <section id="burgers">
+    <h2>🍔 Burgers</h2>
+
+    <div class="menu-item">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Veggie_Burger.jpg" alt="Veg Burger">
+      <div class="menu-info">
+        <div class="menu-name">Veg Burger</div>
+        <div class="menu-desc">Crispy veg patty with mayo</div>
+        <div class="menu-price">₹80</div>
+      </div>
+      <button class="order-btn" onclick="orderItem('Veg Burger')">Order</button>
+    </div>
+
+    <div class="menu-item">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/3/3b/Cheeseburger.jpg" alt="Double Cheese Burger">
+      <div class="menu-info">
+        <div class="menu-name">Double Cheese Burger</div>
+        <div class="menu-desc">Double cheese, double taste</div>
+        <div class="menu-price">₹130</div>
+      </div>
+      <button class="order-btn" onclick="orderItem('Double Cheese Burger')">Order</button>
+    </div>
+  </section>
+
+  <!-- Beverages Section -->
+  <section id="beverages">
+    <h2>☕ Beverages</h2>
+
+    <div class="menu-item">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Masala_Chai.jpg" alt="Masala Tea">
+      <div class="menu-info">
+        <div class="menu-name">Masala Tea</div>
+        <div class="menu-desc">Hot and refreshing Indian chai</div>
+        <div class="menu-price">₹20</div>
+      </div>
+      <button class="order-btn" onclick="orderItem('Masala Tea')">Order</button>
+    </div>
+
+    <div class="menu-item">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Iced_coffee_in_Tall_glass.jpg" alt="Cold Coffee">
+      <div class="menu-info">
+        <div class="menu-name">Cold Coffee</div>
+        <div class="menu-desc">Chilled coffee with cream</div>
+        <div class="menu-price">₹60</div>
+      </div>
+      <button class="order-btn" onclick="orderItem('Cold Coffee')">Order</button>
+    </div>
+  </section>
+
+  <!-- Desserts Section -->
+  <section id="desserts">
+    <h2>🍰 Desserts</h2>
+
+    <div class="menu-item">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/a/a0/Chocolate_mousse_2.jpg" alt="Chocolate Mousse">
+      <div class="menu-info">
+        <div class="menu-name">Chocolate Mousse</div>
+        <div class="menu-desc">Rich and creamy chocolate dessert</div>
+        <div class="menu-price">₹90</div>
+      </div>
+      <button class="order-btn" onclick="orderItem('Chocolate Mousse')">Order</button>
+    </div>
+  </section>
 
   <script>
-    /*
-      How this file is structured:
-      - You can edit the defaultMENU variable below or host a separate 'menu.json' next to this file.
-      - If 'EXTERNAL_MENU_PATH' is set to 'menu.json', the page will try to fetch it on load.
-      - To update the live menu later: replace the menu.json or edit this HTML and redeploy.
-      - After hosting, generate a QR code for the page URL (same QR always) so updates show automatically.
-    */
-
-    const EXTERNAL_MENU_PATH = 'menu.json' // set to null to disable external fetch
-
-    const defaultMENU = {
-      "restaurant": {"name":"Tasty Treats","tag":"Home of simple & tasty meals"},
-      "sections": [
-        {"title":"Pizzas","items":[
-          {"name":"Margherita","desc":"Classic cheese & tomato","price":"₹120","img":"https://via.placeholder.com/300x200?text=Margherita"},
-          {"name":"Farmhouse","desc":"Veggies & cheese","price":"₹180","img":"https://via.placeholder.com/300x200?text=Farmhouse"}
-        ]},
-        {"title":"Burgers","items":[
-          {"name":"Veg Burger","desc":"Crispy veg patty","price":"₹80","img":"https://via.placeholder.com/300x200?text=Veg+Burger"},
-          {"name":"Cheese Burger","desc":"Cheesy delight","price":"₹100","img":"https://via.placeholder.com/300x200?text=Cheese+Burger"}
-        ]}
-      ]
+    function orderItem(item) {
+      const phone = '918384826808';
+      const msg = encodeURIComponent(`Hello! I want to order one ${item} from your restaurant.`);
+      window.open(`https://wa.me/${phone}?text=${msg}`, '_blank');
     }
-
-    // Utility: render a section
-    function renderMenu(menu){
-      document.getElementById('restName').textContent = menu.restaurant?.name || 'Restaurant'
-      document.getElementById('restTag').textContent = menu.restaurant?.tag || ''
-      const root = document.getElementById('menuRoot'); root.innerHTML = ''
-      menu.sections.forEach(section => {
-        const h = document.createElement('div');
-        h.className = 'section-title'; h.textContent = section.title
-        root.appendChild(h)
-        const g = document.createElement('div'); g.className = 'grid'
-        section.items.forEach(it=>{
-          const card = document.createElement('div'); card.className='card'
-          const img = document.createElement('img'); img.className='thumb'; img.src = it.img || 'https://via.placeholder.com/300x200?text=No+Image'
-          const meta = document.createElement('div'); meta.className='meta'
-          const row = document.createElement('div'); row.style.display='flex'; row.style.alignItems='center'
-          const name = document.createElement('div'); name.className='name'; name.textContent = it.name
-          const price = document.createElement('div'); price.className='price'; price.textContent = it.price
-          row.appendChild(name); row.appendChild(price)
-          const desc = document.createElement('div'); desc.className='desc'; desc.textContent = it.desc || ''
-          meta.appendChild(row); meta.appendChild(desc)
-          card.appendChild(img); card.appendChild(meta);
-          g.appendChild(card)
-        })
-        root.appendChild(g)
-      })
-    }
-
-    // Try to fetch external JSON if configured, otherwise load default
-    async function loadMenu(){
-      if(EXTERNAL_MENU_PATH){
-        try{
-          const res = await fetch(EXTERNAL_MENU_PATH, {cache:'no-store'})
-          if(res.ok){
-            const j = await res.json(); renderMenu(j); return
-          }
-        }catch(e){/* fetch failed, fall back */}
-      }
-      renderMenu(defaultMENU)
-    }
-
-    loadMenu()
-
-    // Quick-edit modal helpers
-    function toggleEdit(){
-      const m = document.getElementById('editModal');
-      if(m.style.display==='flex') m.style.display='none'; else{
-        m.style.display='flex';
-        document.getElementById('menuJson').value = JSON.stringify(window.currentMenu || defaultMENU, null, 2)
-      }
-    }
-    function applyJson(){
-      try{
-        const parsed = JSON.parse(document.getElementById('menuJson').value)
-        window.currentMenu = parsed; renderMenu(parsed); toggleEdit()
-        alert('Applied locally. To make changes permanent, save/update menu.json (or this HTML) on your hosting provider.')
-      }catch(e){ alert('Invalid JSON: '+e.message) }
-    }
-
-    // expose for debugging
-    window.renderMenu = renderMenu
   </script>
-
-  <!--
-    HOSTING + QR steps (short):
-    1) Save this file as index.html.
-    2) Option A - GitHub Pages: create a repo, push index.html, enable Pages -> main branch. Your site will be https://<username>.github.io/<repo>/
-       Option B - Netlify / Vercel: drag-and-drop the site folder or connect repo and deploy (both have free tiers and automatic deploy on push).
-    3) (Optional) Put a 'menu.json' next to index.html to enable easy edits without touching HTML. Update menu.json and redeploy.
-    4) Once your site URL is live, paste the URL into any free QR generator (qrcode-monkey, qr-code-generator, etc.) and download the PNG.
-    5) Print or display the QR. When you update menu.json or index.html and redeploy, the same QR will show updated menu.
-
-    If you want, paste your menu here and I will customize this file for you (fill restaurant name, sections, and image URLs).
-  -->
 </body>
 </html>
